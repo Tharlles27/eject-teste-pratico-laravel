@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -14,7 +15,11 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $pedidos = $user->pedidos;
+        //para find de testes
+        $variavel_teste = false;
+        return view('pedidosLista', ['pedidos' => $pedidos, "variavel_teste" => $variavel_teste]);
     }
 
     /**
@@ -22,9 +27,10 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('pedidoRegistro');
+        $item = Veiculo::findOrFail($id);
+        return view('pedidoRegistro', ['item' => $item]);
     }
 
     /**
@@ -33,21 +39,26 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
         $pedido = new Pedido;
         $pedido->valor_entrada = $request->valor_entrada;
-        $pedido->valor_financiamento = $request->valor_financiamento;
-        $pedido->profissao = $request->profissao;
+        $pedido->parcelas = $request->parcelas;
+        $pedido->profissão = $request->profissao;
         $pedido->remuneracao = $request->remuneracao;
         $pedido->estado_civil = $request->estado_civil;
         $pedido->cpf = $request->cpf;
-        $pedido->endereco = $request->endereco;
+        $pedido->endereco = $request->endereco; 
 
+        $cod = rand(1234, 56789);
+        $pedido->codigo_pedido = $cod;
 
         //Salvando o usuario no modelo de foreignId
         $user = auth()->user();
         $pedido->user_id = $user->id;
+
+        $item = Veiculo::findOrFail($id);
+        $pedido->veiculo_id = $item->id;
 
         $pedido->save();
         return redirect('/');
@@ -59,20 +70,10 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(Pedido $pedido)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pedido $pedido)
-    {
-        //
+        $pedido = Pedido::findOrFail($id);
+        return view('pedidoShow', ['pedido'=>$pedido]);
     }
 
     /**

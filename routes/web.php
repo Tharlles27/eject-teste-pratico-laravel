@@ -30,8 +30,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/shop', [VeiculoController::class, 'list'])->name('lista_veiculo');
     });
     Route::prefix('pedido')->group(function () {
-        Route::get('/registro', [PedidoController::class, 'create'])->name('registro_pedido');
-        Route::post('/registro', [PedidoController::class, 'store'])->name('registro_pedido');
+        Route::get('', [PedidoController::class, 'index'])->name('meus_pedidos');
+        Route::get('/registro/{id}', [PedidoController::class, 'create'])->name('registro_pedido');
+        Route::get('/show/{id}', [PedidoController::class, 'show'])->name('pedido');
+        Route::post('/registro/{id}', [PedidoController::class, 'store'])->name('registro_pedido');
     });
 });   
 

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo_pedido');
             $table->string('valor_entrada');
             $table->string('parcelas');
             $table->string('profissão');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('estado_civil');
             $table->string('cpf');
             $table->string('endereco');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

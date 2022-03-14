@@ -15,9 +15,9 @@
                 <span class="text-primary">Veículo</span>
             </h4>
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="" alt="Card image cap">
+                <img class="card-img-top" src="/img/veiculos/{{ $item->image }}" alt="{{$item->marca_modelo}}">
                 <div class="card-body">
-                    <p class="card-text">observações</p>
+                    <p class="card-text">R$ {{ $item->valor }}</p>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-sm-3">
                         <label for="lastName" class="form-label">Valor de entrada</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="">
+                        <input type="text" class="form-control" id="valor_entrada" name="valor_entrada" placeholder="" value="">
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>

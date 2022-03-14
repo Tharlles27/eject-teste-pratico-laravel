@@ -23,7 +23,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="/veiculo/show/{{ $veiculo->id }}" type="button" class="btn btn-sm btn-outline-secondary">Ver</a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Solicitar</button>
+                                    <a href="/pedido/registro/{{$veiculo->id}}" type="button" class="btn btn-sm btn-outline-secondary">Solicitar</a>
                                 </div>
                                 <small class="text-muted">R$ {{ $veiculo->valor }}</small>
                             </div>
