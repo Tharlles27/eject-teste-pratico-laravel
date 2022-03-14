@@ -49,6 +49,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                    <input class="form-check-input" type="radio" name="admin" id="admin" value="1">
+                                                    <label class="form-check-label" for="exampleRadios2">
+                                                        Usuário administrativo?
+                                                    </label>
+                                                    </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
                                                     <button class="btn btn-primary" type="submit">{{ __('Register') }}</button>

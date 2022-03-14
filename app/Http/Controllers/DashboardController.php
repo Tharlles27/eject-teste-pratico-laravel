@@ -11,7 +11,7 @@ class DashboardController extends Controller
         if(Auth::user() AND Auth::user()->admin == 1) {
             return view('dashboard');
         } else {
-            return view('teste');
-        }
+            return view('default');
+        } 
     }
 }

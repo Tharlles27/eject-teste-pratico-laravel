@@ -24,7 +24,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //
+        return view('pedidoRegistro');
     }
 
     /**
@@ -35,7 +35,22 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pedido = new Pedido;
+        $pedido->valor_entrada = $request->valor_entrada;
+        $pedido->valor_financiamento = $request->valor_financiamento;
+        $pedido->profissao = $request->profissao;
+        $pedido->remuneracao = $request->remuneracao;
+        $pedido->estado_civil = $request->estado_civil;
+        $pedido->cpf = $request->cpf;
+        $pedido->endereco = $request->endereco;
+
+
+        //Salvando o usuario no modelo de foreignId
+        $user = auth()->user();
+        $pedido->user_id = $user->id;
+
+        $pedido->save();
+        return redirect('/');
     }
 
     /**

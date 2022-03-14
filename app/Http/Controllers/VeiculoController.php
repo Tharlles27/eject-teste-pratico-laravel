@@ -12,9 +12,10 @@ class VeiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function list()
     {
-        //
+        $lista_veiculos = Veiculo::all();
+        return view('listaVeiculo', compact('lista_veiculos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class VeiculoController extends Controller
      */
     public function create()
     {
-        return view('veiculo.registro');
+        return view('veiculoRegistro');
     }
 
     /**
@@ -35,21 +36,41 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        Veiculo::create([
-            'marca_modelo' => $request->marca_modelo,
-        ]);
-        return "Veículo registrado com sucesso!";
+        $veiculo = new Veiculo;
+        $veiculo->marca_modelo = $request->marca_modelo;
+        $veiculo->ano = $request->ano;
+        $veiculo->km = $request->km;
+        $veiculo->cambio = $request->cambio;
+        $veiculo->qtd_portas = $request->qtd_portas;
+        $veiculo->combustivel = $request->combustivel;
+        $veiculo->valor = $request->valor;
+        $veiculo->obs = $request->obs;
+
+        //upload da imagem
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName().strtotime("now")).".".$extension;
+            $requestImage->move(public_path('img/veiculos'), $imageName);
+
+            //Salvando a imagem de fato
+            $veiculo->image = $imageName;
+        }
+
+        //Salvando o usuario no modelo de foreignId
+        $user = auth()->user();
+        $veiculo->user_id = $user->id;
+
+        $veiculo->save();
+
+    
+        return redirect('/veiculo/shop'); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $veiculoItem = Veiculo::findOrFail($id);
+        return view('veiculoShow', ['veiculoItem' => $veiculoItem]);
     }
 
     /**

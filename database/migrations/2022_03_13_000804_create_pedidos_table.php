@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->string('valor_entrada');
+            $table->string('parcelas');
+            $table->string('profissão');
+            $table->string('remuneracao');
+            $table->string('estado_civil');
+            $table->string('cpf');
+            $table->string('endereco');
             $table->timestamps();
         });
     }

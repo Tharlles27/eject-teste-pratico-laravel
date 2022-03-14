@@ -11,11 +11,18 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::create('veiculos', function (Blueprint $table) {
             $table->id();
             $table->string('marca_modelo');
+            $table->string('ano');
+            $table->string('km');
+            $table->string('cambio');
+            $table->string('qtd_portas');
+            $table->string('combustivel');
+            $table->string('valor');
+            $table->string('obs');
             $table->timestamps();
         });
     }
